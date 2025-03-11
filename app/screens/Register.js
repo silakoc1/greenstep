@@ -13,6 +13,17 @@ import {
 
 export default function Register() {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  
+  // University Dropdown States
+  const [openUniversity, setOpenUniversity] = useState(false);
+  const [valueUniversity, setValueUniversity] = useState(null);
+  const [itemsUniversity, setItemsUniversity] = useState([
+    { label: 'Boğaziçi Üniversitesi', value: 'Boğaziçi Üniversitesi' },
+    { label: 'Trakya Üniversitesi', value: 'Trakya Üniversitesi' },
+    { label: 'Akdeniz Üniversitesi', value: 'Akdeniz Üniversitesi' }
+  ]);
+
+  // Faculty Dropdown States
   const [openFaculty, setOpenFaculty] = useState(false);
   const [valueFaculty, setValueFaculty] = useState(null);
   const [itemsFaculty, setItemsFaculty] = useState([
@@ -23,11 +34,12 @@ export default function Register() {
     { label: 'Uygulamalı Bilimler Fakültesi', value: 'Uygulamalı Bilimler Fakültesi' }
   ]);
 
+  // Department Dropdown States
   const [openDepartment, setOpenDepartment] = useState(false);
   const [valueDepartment, setValueDepartment] = useState(null);
   const [itemsDepartment, setItemsDepartment] = useState([
-    { label: 'Finans ve Bankacılık ', value: 'Finans ve Bankacılık' },
-    { label: 'Turizm İşletmeciliği ', value: 'Turizm İşletmeciliği ' },
+    { label: 'Finans ve Bankacılık', value: 'Finans ve Bankacılık' },
+    { label: 'Turizm İşletmeciliği', value: 'Turizm İşletmeciliği' },
     { label: 'Yönetim Bilişim Sistemleri', value: 'Yönetim Bilişim Sistemleri' }
   ]);
 
@@ -99,15 +111,16 @@ export default function Register() {
                 </View>
               </View>
 
+              {/* New University Dropdown */}
               <View className="flex-col mx-4 mt-5">
-                <Text className="text-[#111111] font-poppinsRegular text-[14px] bottom-2 left-3">Fakülteni seç</Text>
+                <Text className="text-[#111111] font-poppinsRegular text-[14px] bottom-2 left-3">Üniversiteni seç</Text>
                 <DropDownPicker
-                  open={openFaculty}
-                  value={valueFaculty}
-                  items={itemsFaculty}
-                  setOpen={setOpenFaculty}
-                  setValue={setValueFaculty}
-                  setItems={setItemsFaculty}
+                  open={openUniversity}
+                  value={valueUniversity}
+                  items={itemsUniversity}
+                  setOpen={setOpenUniversity}
+                  setValue={setValueUniversity}
+                  setItems={setItemsUniversity}
                   placeholder="Seçiniz..."
                   style={{
                     backgroundColor: '#EDEDEDA6',
@@ -130,6 +143,41 @@ export default function Register() {
                 />
               </View>
 
+              {/* Conditional Faculty Dropdown for Trakya University */}
+              {valueUniversity === 'Trakya Üniversitesi' && (
+                <View className="flex-col mx-4 mt-5">
+                  <Text className="text-[#111111] font-poppinsRegular text-[14px] bottom-2 left-3">Fakülteni seç</Text>
+                  <DropDownPicker
+                    open={openFaculty}
+                    value={valueFaculty}
+                    items={itemsFaculty}
+                    setOpen={setOpenFaculty}
+                    setValue={setValueFaculty}
+                    setItems={setItemsFaculty}
+                    placeholder="Seçiniz..."
+                    style={{
+                      backgroundColor: '#EDEDEDA6',
+                      borderRadius: 16,
+                      height: 50,
+                      paddingLeft: 10,
+                      borderWidth: 0,
+                    }}
+                    textStyle={{
+                      color: '#000000',
+                      fontFamily: 'Poppins_400Regular',
+                    }}
+                    dropDownContainerStyle={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 16,
+                      borderWidth: 1,
+                      borderColor: '#F2F4F7',
+                    }}
+                    dropDownDirection="BOTTOM"
+                  />
+                </View>
+              )}
+
+              {/* Conditional Department Dropdown */}
               {valueFaculty === 'Uygulamalı Bilimler Fakültesi' && (
                 <View className="flex-col mx-4 mt-5">
                   <Text className="text-[#111111] font-poppinsRegular text-[14px] bottom-2 left-3">Bölümünü seç</Text>
@@ -197,3 +245,4 @@ export default function Register() {
     </View>
   );
 }
+

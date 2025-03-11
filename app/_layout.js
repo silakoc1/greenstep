@@ -12,8 +12,9 @@ import {
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
 import { View } from "react-native";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "expo-router";
+
 
 const Layout = () => {
   const router = useRouter();
@@ -33,26 +34,38 @@ const Layout = () => {
     if (fontsLoaded) {
       const timer = setTimeout(() => {
         router.push("/screens/Login");
-      }, 5000); // 5 seconds delay
+      }, 5000); // 5 saniye sonra giriş ekranına yönlendir
 
-      return () => clearTimeout(timer); // Cleanup the timer on unmount
+      return () => clearTimeout(timer); // Sayfa değişirse zamanlayıcıyı temizle
     }
   }, [fontsLoaded, router]);
 
   if (!fontsLoaded) {
-    return null;
+    return null; // Eğer fontlar yüklenmediyse boş ekran göster
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="index" options={{ title: "Greenstep" }} />
-      <Stack.Screen name="Login" options={{ title: "Login" }} />
-      <Stack.Screen name="Register" options={{ title: "Register" }} />
-    </Stack>
+    
+      
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="index" options={{ title: "Greenstep" }} />
+          <Stack.Screen name="Login" options={{ title: "Login" }} />
+          <Stack.Screen name="Register" options={{ title: "Register" }} />
+          <Stack.Screen name="Home" options={{ title: "Home" }} />
+          <Stack.Screen name="Notification" options={{ title: "Notification" }} />
+          <Stack.Screen name="Profile" options={{ title: "Profile" }} />
+          <Stack.Screen name="Map" options={{ title: "Map" }} />
+          <Stack.Screen name="NotificationDetails" options={{ title: "NotificationDetails" }} />
+          <Stack.Screen name="notificationDetails" options={{ title: "notificationDetails" }} />
+          
+        </Stack>
+       
+     
+   
   );
 };
 

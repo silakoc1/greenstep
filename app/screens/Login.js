@@ -84,7 +84,7 @@ export default function Login() {
             <LinearGradient colors={["#F6D107", "#F49939"]} style={{borderRadius: 16}}>
           <TouchableOpacity
             className=" h-[50px] items-center justify-center "
-            onPress={() => router.push("/home")}
+            onPress={() => router.push("/screens/HomeScreen")}
           >
             <Text className="text-white font-poppinsSemiBold text-center text-[16px]">Giriş Yap</Text>
           </TouchableOpacity>
