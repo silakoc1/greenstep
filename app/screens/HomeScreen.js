@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   View,
@@ -12,6 +13,7 @@ import {
 import BottomNavigation from "../components/BottomNavigation";
 
 export default function HomeScreen() {
+  const router = useRouter();
   return (
     <View className="flex-1 bg-white">
       {/* Sabit Üst Kısım */}
@@ -104,7 +106,7 @@ export default function HomeScreen() {
                 </LinearGradient>
               </TouchableOpacity>
 
-              <TouchableOpacity className="rounded-[16px]">
+              <TouchableOpacity className="rounded-[16px]"  onPress={() => router.push("/screens/QrcodeScanner")} >
                 <LinearGradient
                   colors={["#77AD19", "#51652D"]}
                   style={{ borderRadius: 16, width: 172, height: 133 }}

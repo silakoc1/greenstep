@@ -61,6 +61,7 @@ const Layout = () => {
           <Stack.Screen name="Map" options={{ title: "Map" }} />
           <Stack.Screen name="NotificationDetails" options={{ title: "NotificationDetails" }} />
           <Stack.Screen name="notificationDetails" options={{ title: "notificationDetails" }} />
+          <Stack.Screen name="QrcodeScanner" options={{ title: "QrcodeScanner" }} />
           
         </Stack>
        

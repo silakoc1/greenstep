@@ -70,10 +70,10 @@ export default function editProfile() {
       </View>
 
    
-      <TouchableOpacity className="mt-4 mb-12 "> 
+      <TouchableOpacity className=" w-full h-12  "> 
         <LinearGradient
           colors={["#F6D107", "#F49939"]}
-          className="p-4  rounded-full items-center "
+          className=" w-full h-12 rounded-full items-center "
         >
           <Text className="text-white font-bold text-center text-lg">Kaydet</Text>
         </LinearGradient>
