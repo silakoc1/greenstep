@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, FlatList } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, FlatList, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useAuth } from "../context/AuthContext";
 import "../../global.css";
 
 import {
@@ -12,6 +13,8 @@ import {
 } from "react-native-responsive-screen";
 
 export default function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   
   // University Dropdown States
@@ -43,10 +46,35 @@ export default function Register() {
     { label: 'Yönetim Bilişim Sistemleri', value: 'Yönetim Bilişim Sistemleri' }
   ]);
 
+  const { register } = useAuth();
   const router = useRouter();
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
+  };
+
+  const handleRegister = () => {
+    if (!email || !password) {
+      Alert.alert("Hata", "Lütfen tüm alanları doldurun!");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      Alert.alert("Hata", "Lütfen geçerli bir email adresi girin!");
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Hata", "Şifre en az 6 karakter olmalıdır!");
+      return;
+    }
+
+    const result = register(email, password);
+    Alert.alert(result.success ? "Başarılı" : "Hata", result.message);
+    
+    if (result.success) {
+      router.push("/screens/Login");
+    }
   };
 
   return (
@@ -82,6 +110,10 @@ export default function Register() {
                     className="flex-1"
                     placeholder="silakoc@gmail.com"
                     placeholderTextColor="#000000"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                   />
                   <View className="right-3">
                     <Image
@@ -100,6 +132,8 @@ export default function Register() {
                     placeholder="*"
                     placeholderTextColor="#000000"
                     secureTextEntry={secureTextEntry}
+                    value={password}
+                    onChangeText={setPassword}
                   />
                   <TouchableOpacity className="right-3" onPress={toggleSecureEntry}>
                     <Icon
@@ -215,7 +249,7 @@ export default function Register() {
                 <LinearGradient colors={["#F6D107", "#F49939"]} style={{ borderRadius: 16 }}>
                   <TouchableOpacity
                     className="h-[50px] items-center justify-center"
-                    onPress={() => router.push("/screens/Login")}
+                    onPress={handleRegister}
                   >
                     <Text className="text-white font-poppinsSemiBold text-center text-[16px]">Kayıt Ol</Text>
                   </TouchableOpacity>

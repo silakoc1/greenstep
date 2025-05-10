@@ -11,15 +11,22 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSCameraUsageDescription": "QR kodları taramak için kameraya erişim izni gerekiyor."
-      }
+        "NSCameraUsageDescription": "Uygulama, profil fotoğrafı çekmek ve QR kodlarını taramak için kameranıza erişmek istiyor.",
+        "NSPhotoLibraryUsageDescription": "Uygulama, profil fotoğrafı seçmek için fotoğraf galerinize erişmek istiyor.",
+        "NSPhotoLibraryAddUsageDescription": "Uygulama, fotoğraf galerinize resim kaydetmek için izin istiyor."
+      },
+      "bundleIdentifier": "com.sevgen.greenstep"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA",
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -41,7 +48,22 @@
       [
         "expo-barcode-scanner",
         {
-          "cameraPermission": "QR kodları taramak için kameraya erişim izni gerekiyor."
+          "cameraPermission": "QR kodlarını taramak için kameranıza erişim izni gerekiyor."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Uygulama, profil fotoğrafı seçebilmeniz için fotoğraflarınıza erişmek istiyor.",
+          "cameraPermission": "Uygulama, profil fotoğrafı çekebilmeniz için kameranıza erişmek istiyor."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Uygulama, fotoğraf galerinize erişmek ve fotoğraf kaydetmek için izin istiyor.",
+          "savePhotosPermission": "Uygulama, fotoğraf galerinize fotoğraf kaydetmek için izin istiyor.",
+          "isAccessPrivileged": true
         }
       ]
     ],

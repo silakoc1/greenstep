@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAuth } from "../context/AuthContext";
 import "../../global.css";
 
 import {
@@ -10,13 +11,29 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-
 export default function Login() {
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const { login } = useAuth();
   const router = useRouter();
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
+  };
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      Alert.alert("Hata", "Lütfen tüm alanları doldurun!");
+      return;
+    }
+
+    const result = login(email, password);
+    Alert.alert(result.success ? "Başarılı" : "Hata", result.message);
+    
+    if (result.success) {
+      router.push("/screens/HomeScreen");
+    }
   };
 
   return (
@@ -48,6 +65,10 @@ export default function Login() {
               className="flex-1"
               placeholder="silakoc@gmail.com"
               placeholderTextColor="#000000"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
             <View className="right-3">
               <Image
@@ -66,6 +87,8 @@ export default function Login() {
               placeholder="*"
               placeholderTextColor="#000000"
               secureTextEntry={secureTextEntry}
+              value={password}
+              onChangeText={setPassword}
             />
             <TouchableOpacity className="right-3" onPress={toggleSecureEntry}>
               <Icon
@@ -83,8 +106,8 @@ export default function Login() {
         <View className="flex-col mx-4 mt-10">
             <LinearGradient colors={["#F6D107", "#F49939"]} style={{borderRadius: 16}}>
           <TouchableOpacity
-            className=" h-[50px] items-center justify-center "
-            onPress={() => router.push("/screens/HomeScreen")}
+              className="h-[50px] items-center justify-center"
+              onPress={handleLogin}
           >
             <Text className="text-white font-poppinsSemiBold text-center text-[16px]">Giriş Yap</Text>
           </TouchableOpacity>

@@ -14,7 +14,7 @@ import {
 import { View } from "react-native";
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
-
+import { AuthProvider } from "./context/AuthContext";
 
 const Layout = () => {
   const router = useRouter();
@@ -45,8 +45,7 @@ const Layout = () => {
   }
 
   return (
-    
-      
+    <AuthProvider>
         <Stack
           screenOptions={{
             headerShown: false,
@@ -62,11 +61,8 @@ const Layout = () => {
           <Stack.Screen name="NotificationDetails" options={{ title: "NotificationDetails" }} />
           <Stack.Screen name="notificationDetails" options={{ title: "notificationDetails" }} />
           <Stack.Screen name="QrcodeScanner" options={{ title: "QrcodeScanner" }} />
-          
         </Stack>
-       
-     
-   
+    </AuthProvider>
   );
 };
 
