@@ -163,11 +163,11 @@ export const AuthProvider = ({ children }) => {
 
 
     const now = Date.now();
-    const oneHour = 60 * 60 * 1000;
+    const oneMinute = 60 * 1000;
 
     // 1. Cooldown Check
-    if (userData.lastScanTimestamps[qrId] && (now - userData.lastScanTimestamps[qrId] < oneHour)) {
-      const timeLeft = Math.ceil((oneHour - (now - userData.lastScanTimestamps[qrId])) / (60 * 1000));
+    if (userData.lastScanTimestamps[qrId] && (now - userData.lastScanTimestamps[qrId] < oneMinute)) {
+      const timeLeft = Math.ceil((oneMinute - (now - userData.lastScanTimestamps[qrId])) / (60 * 1000));
       return { success: false, message: `Bu QR kodu ${timeLeft} dakika sonra tekrar okutabilirsiniz.`, newBadges: [] };
     }
 
@@ -200,6 +200,7 @@ export const AuthProvider = ({ children }) => {
     const consecutiveData = userData.consecutiveScanData[qrId];
 
     if (consecutiveData.lastScanDate !== todayStr) { // Only update consecutive count once per day
+        const oneHour = 60 * 60 * 1000; // Define oneHour for this calculation
         const yesterdayStr = new Date(now - 24 * oneHour).toISOString().split('T')[0];
         if (consecutiveData.lastScanDate === yesterdayStr) {
             consecutiveData.count++;
@@ -227,7 +228,7 @@ export const AuthProvider = ({ children }) => {
     
     updateCurrentUser(userData);
 
-    let message = "10 puan kazandınız!";
+    let message = "10 puan ve Atık Avcısı Rozeti kazandınız!";
     if (newBadgesAwarded.length > 0) {
         message += ` Yeni rozetler: ${newBadgesAwarded.join(', ')}`;
     }
